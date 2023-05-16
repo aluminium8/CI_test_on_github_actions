@@ -1,0 +1,4 @@
+C:/Users/metar/programming/CI/compile_test_cpp_by_cmake/build/CMakeFiles/greet_func.dir
+C:/Users/metar/programming/CI/compile_test_cpp_by_cmake/build/CMakeFiles/greet_main.dir
+C:/Users/metar/programming/CI/compile_test_cpp_by_cmake/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/metar/programming/CI/compile_test_cpp_by_cmake/build/CMakeFiles/ZERO_CHECK.dir

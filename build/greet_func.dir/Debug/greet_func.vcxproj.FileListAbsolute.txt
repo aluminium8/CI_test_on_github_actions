@@ -1,0 +1,2 @@
+C:\Users\metar\programming\CI\compile_test_cpp_by_cmake\build\Debug\greet_func.pdb
+C:\Users\metar\programming\CI\compile_test_cpp_by_cmake\build\greet_func.dir\Debug\greet_func.pdb
