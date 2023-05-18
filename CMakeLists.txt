@@ -5,7 +5,7 @@ find_package(Eigen3 REQUIRED)
 
 message("BOOST include path: ${Boost_INCLUDE_DIRS}")
 message("BOOST library path: ${Boost_LIBRARRY_DIRS}")
-
+message("Eigen include pathEIGEN_INCLUDE_DIR")
 
 include_directories( ${Boost_INCLUDE_DIRS} )
 
