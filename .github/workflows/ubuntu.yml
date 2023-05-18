@@ -47,13 +47,13 @@ jobs:
           wget https://gitlab.com/libeigen/eigen/-/archive/3.3.9/eigen-3.3.9.zip
           unzip eigen-3.3.9.zip 
           cd eigen-3.3.9
-          cmake -B build ${{env.Eigen3_DIR}}
+          cmake -B  ${{env.Eigen3_DIR}} -S .
+      
       - name: Save eigen
         id: cache-eigen-save
         uses: actions/cache/save@v3
         with:
-          path: |
-            ${{env.Eigen3_DIR}}
+          path: ${{env.Eigen3_DIR}}
           key: ${{ steps.cache-eigen-restore.outputs.cache-primary-key }}
 
 
