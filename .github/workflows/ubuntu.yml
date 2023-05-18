@@ -48,7 +48,7 @@ jobs:
       - name: install eigen
         run: |
           cd eigen-3.3.9
-          cmake -B build ${{github.workspace}}/eigen_install_dir
+        # cmake -B build ${{github.workspace}}/eigen_install_dir
 
 
 
