@@ -33,8 +33,13 @@ jobs:
       # NOTE: If a boost version matching all requirements cannot be found,
       # this build step will fail
 
-      - name: add path to boost
-        run: BOOST_INCLUDE_DIR=${{steps.install-boost.outputs.BOOST_ROOT}}/include && BOOST_LIBRARY_DIRS=${{steps.install-boost.outputs.BOOST_ROOT}}/lib
+      - name: add path to boost include
+        run: BOOST_INCLUDE_DIR=${{steps.install-boost.outputs.BOOST_ROOT}}/include 
+      - name: add path to boost lib
+        run: BOOST_LIBRARY_DIRS=${{steps.install-boost.outputs.BOOST_ROOT}}/lib
+
+      - name: check path
+        run: echo $BOOST_INCLUDE_DIR && echo $BOOST_LIBRARY_DIRS
 
       - name: Configure CMake
         # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
