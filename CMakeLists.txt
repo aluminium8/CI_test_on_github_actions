@@ -13,4 +13,4 @@ add_executable(boost_link_test src/boost_test.cpp)
 
 # a.outを作成する際にlibgreetings.soをリンク
 target_link_libraries(greet_main greet_func)
-target_link_libraries(boost_link_test ${BOOST_LIBS})
+target_link_libraries(boost_link_test ${BOOST_LIBRARY_DIRS})
