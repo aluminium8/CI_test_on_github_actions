@@ -10,7 +10,7 @@ on: push
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
   BUILD_TYPE: Release
-
+  Eigen3_DIR: ${{github.workspace}}/eigen_build/
 jobs:
   ubuntu_test:
     # The CMake configure and build commands are platform agnostic and should work equally well on Windows or Mac.
@@ -38,29 +38,29 @@ jobs:
         id: cache-eigen-restore
         uses: actions/cache/restore@v3
         with:
-          path: ${{github.workspace}}/eigen_build
+          path: ${{env.Eigen3_DIR}}
           key: ${{ runner.os }}-eigen
 
       - name: DL and install Eigen
-        if: steps.cache-eigen.outputs.cache-hit != 'true'
+        if: steps.cache-eigen-restore.outputs.cache-hit != 'true'
         run: |
           wget https://gitlab.com/libeigen/eigen/-/archive/3.3.9/eigen-3.3.9.zip
           unzip eigen-3.3.9.zip 
           cd eigen-3.3.9
-          cmake -B build ${{github.workspace}}/eigen_build
+          cmake -B build ${{env.Eigen3_DIR}}
       - name: Save eigen
         id: cache-eigen-save
         uses: actions/cache/save@v3
         with:
           path: |
-            ${{github.workspace}}/eigen_build
+            ${{env.Eigen3_DIR}}
           key: ${{ steps.cache-eigen-restore.outputs.cache-primary-key }}
 
 
       - name: Configure CMake
         # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
         # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
-        run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+        run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DEigen3_DIR=${{env.Eigen3_DIR}}
         env:
           BOOST_ROOT: ${{ steps.install-boost.outputs.BOOST_ROOT }}
 
