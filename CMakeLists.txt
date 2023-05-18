@@ -2,11 +2,11 @@ cmake_minimum_required(VERSION 3.13)
 project(test_cmake CXX)
 find_package(Boost REQUIRED)
 
-message("BOOST include path: ${BOOST_INCLUDE_DIRS}")
+message("BOOST include path: ${Boost_INCLUDE_DIRS}")
 message("BOOST library path: ${BOOST_LIBRARRY_DIRS}")
 
 
-include_directories( ${BOOST_INCLUDE_DIRS} )
+include_directories( ${Boost_INCLUDE_DIRS} )
 
 # make library of function "greet"
 add_library(greet_func STATIC src/say_hello.cpp src/say_hello.cpp)
