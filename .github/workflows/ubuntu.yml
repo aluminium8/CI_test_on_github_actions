@@ -1,10 +1,11 @@
 name: test on ubuntu
 
-on:
-  push:
-    branches: ["main", "second", "eigen_test"]
-  pull_request:
-    branches: ["main"]
+on: push
+#on:
+#  push:
+ #   branches: ["main", "second", "eigen_test"]
+  #pull_request:
+   # branches: ["main"]
 
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
@@ -33,25 +34,27 @@ jobs:
       # NOTE: If a boost version matching all requirements cannot be found,
       # this build step will fail
 
-      - name: Cache Eigen
-        id: cache-eigen
-        uses: actions/cache@v3
+      - name:  try restore cache of Eigen
+        id: cache-eigen-restore
+        uses: actions/cache/restore@v3
         with:
-          path: ${{github.workspace}}/-3.3.9
+          path: ${{github.workspace}}/eigen_build
           key: ${{ runner.os }}-eigen
 
-      - name: DL eigen
+      - name: DL and install Eigen
         if: steps.cache-eigen.outputs.cache-hit != 'true'
         run: |
           wget https://gitlab.com/libeigen/eigen/-/archive/3.3.9/eigen-3.3.9.zip
           unzip eigen-3.3.9.zip 
-      - name: install eigen
-        run: |
           cd eigen-3.3.9
-        # cmake -B build ${{github.workspace}}/eigen_install_dir
-
-
-
+          cmake -B build ${{github.workspace}}/eigen_build
+      - name: Save eigen
+        id: cache-eigen-save
+        uses: actions/cache/save@v3
+        with:
+          path: |
+            ${{github.workspace}}/eigen_build
+          key: ${{ steps.cache-eigen-restore.outputs.cache-primary-key }}
 
 
       - name: Configure CMake

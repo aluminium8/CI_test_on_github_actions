@@ -23,11 +23,11 @@ jobs:
         uses: microsoft/setup-msbuild@v1.0.2
 
 
-      - name: Cache Eigen
-        id: cache-eigen
-        uses: actions/cache@v3
+      - name:  try restore cache of Eigen
+        id: cache-eigen-restore
+        uses: actions/cache/restore@v3
         with:
-          path: ${{github.workspace}}/-3.3.9
+          path: ${{github.workspace}}/eigen_build
           key: ${{ runner.os }}-eigen
 
       - name: DL eigen
@@ -36,10 +36,16 @@ jobs:
           curl https://gitlab.com/libeigen/eigen/-/archive/3.3.9/eigen-3.3.9.zip -OL
           dir
           7z x eigen-3.3.9.zip 
-      - name: install eigen
-        run: |
           cd eigen-3.3.9
           cmake -B build ${{github.workspace}}/eigen_install_dir
+
+      - name: Save eigen
+        id: cache-eigen-save
+        uses: actions/cache/save@v3
+        with:
+          path: |
+            ${{github.workspace}}/eigen_build
+          key: ${{ steps.cache-eigen-restore.outputs.cache-primary-key }}
 
 
 
