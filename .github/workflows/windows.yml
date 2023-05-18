@@ -2,7 +2,7 @@ name: test on windows
 
 on:
   push:
-    branches: ["main", "second"]
+    branches: ["main", "second", "eigen_test"]
   pull_request:
     branches: ["main"]
 
