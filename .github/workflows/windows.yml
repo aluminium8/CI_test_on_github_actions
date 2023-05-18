@@ -19,6 +19,30 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v1.0.2
+
+
+      - name: Cache Eigen
+        id: cache-eigen
+        uses: actions/cache@v3
+        with:
+          path: ${{github.workspace}}/-3.3.9
+          key: ${{ runner.os }}-eigen
+
+      - name: DL eigen
+        if: steps.cache-eigen.outputs.cache-hit != 'true'
+        run: |
+          curl https://gitlab.com/libeigen/eigen/-/archive/3.3.9/eigen-3.3.9.zip
+          7z x eigen-3.3.9.zip 
+      - name: install eigen
+        run: |
+          cd eigen-3.3.9
+          cmake -B build ${{github.workspace}}/eigen_install_dir
+
+
+
+
       - name: Install boost
         uses: MarkusJx/install-boost@v2.4.1
         id: install-boost
@@ -30,8 +54,8 @@ jobs:
 
         # NOTE: If a boost version matching all requirements cannot be found,
         # this build step will fail
-      - name: Add msbuild to PATH
-        uses: microsoft/setup-msbuild@v1.0.2
+
+
 
       - name: Configure CMake
         # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
