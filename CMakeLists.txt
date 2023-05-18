@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.13)
 project(test_cmake CXX)
-
+find_package(Boost REQUIRED)
 
 message("BOOST include path: ${BOOST_INCLUDE_DIRS}")
 message("BOOST library path: ${BOOST_LIBRARRY_DIRS}")
